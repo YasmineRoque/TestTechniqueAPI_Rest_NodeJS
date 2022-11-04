@@ -1,0 +1,18 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "C'est un test technique pour l'alternance de Développeur web chez les Bons Artisans, avec l'utilisation de NodeJS (et son framwork ExpressJS) et la base de données MongoDB pour le coté serveur, et pour le frontend j'utilise React",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yasmine ROQUE AZEVEDO",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "mongoose": "^6.7.1",
+    "nodemon": "^2.0.20"
+  }
+}
