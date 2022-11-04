@@ -10,10 +10,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //parse application/json
 app.use(bodyParser.json());
 
+//Le CRUD:
+
 app.get("/products", async (req, res) => {
   //Utiliser une fonction de mongoose (middleware)
   try {
     await Product.find({}).then((result) => {
+      res.send(result);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/product/:id", async (req, res) => {
+  try {
+    await Product.findOne({}).then((result) => {
       res.send(result);
     });
   } catch (err) {
@@ -33,7 +45,7 @@ app.post("/create", async (req, res) => {
     });
 
     await new_product.save();
-    res.send("save effectué avec succes !");
+    res.send("product succesfully created !");
   } catch (err) {
     console.log(err);
   }
@@ -42,7 +54,7 @@ app.post("/create", async (req, res) => {
 app.delete("/delete/:id", async (req, res) => {
   try {
     await Product.findOneAndDelete({ id: req.params.id });
-    res.send("supprimé avec succes");
+    res.send("product has been deleted");
   } catch (err) {
     res.send(err);
   }
@@ -61,7 +73,7 @@ app.put("/maj/:id", async (req, res) => {
         available: req.body.available,
       }
     );
-    res.send("mise à jour avec succes !");
+    res.send("product has been updated !");
   } catch (err) {
     res.send(err);
   }
