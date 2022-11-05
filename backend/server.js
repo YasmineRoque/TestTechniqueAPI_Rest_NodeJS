@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("./models/product");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
+const User = require("./models/User");
 
 const app = express();
 
@@ -10,7 +12,36 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //parse application/json
 app.use(bodyParser.json());
 
-//Le CRUD:
+//Créer un utilisateur
+app.post("/signUp", async (req, res, next) => {
+  //Hacher le mot de passe
+  bcrypt.hash(req.body.password);
+  try {
+    const user = new User({
+      username: req.body.username,
+      password: hash,
+    });
+
+    await user.save();
+    res.send("Utilisateur a bien été créé !");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/login", async (req, res, next) => {
+  try {
+    await User.findOne({
+      userName: req.body.userName,
+    });
+    res.send();
+  } catch (err) {
+    res.send("Utilisateur non trouvé !");
+  }
+});
+// Ajouter la comparaison de mdp:bcrypt.compare(req.body.password, user.password)
+
+//Le CRUD pour les produits :
 
 app.get("/products", async (req, res) => {
   //Utiliser une fonction de mongoose (middleware)
